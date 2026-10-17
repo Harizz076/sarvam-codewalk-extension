@@ -1,0 +1,172 @@
+{
+  "name": "sarvam-codewalk",
+  "displayName": "Sarvam Codewalk",
+  "description": "A calm multilingual learning companion for small, approved coding changes.",
+  "version": "0.1.0",
+  "publisher": "sarvam-codewalk",
+  "license": "Apache-2.0",
+  "icon": "media/codewalk.png",
+  "galleryBanner": {
+    "color": "#251b4a",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Harizz076/sarvam-codewalk-extension.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Harizz076/sarvam-codewalk-extension/issues"
+  },
+  "homepage": "https://github.com/Harizz076/sarvam-codewalk-extension#readme",
+  "keywords": [
+    "vscode-extension",
+    "voice-coding",
+    "multilingual",
+    "sarvam",
+    "developer-education"
+  ],
+  "files": [
+    "out/extension.js",
+    "media/codewalk.png",
+    "media/main.js",
+    "media/style.css",
+    "README.md",
+    "CHANGELOG.md",
+    "SUPPORT.md",
+    "LICENSE",
+    "handoff-schema.json"
+  ],
+  "private": true,
+  "engines": {
+    "vscode": "^1.98.0"
+  },
+  "categories": [
+    "AI",
+    "Education",
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onView:sarvam-codewalk.learningPanel",
+    "onCommand:sarvamCodewalk.startRecording",
+    "onCommand:sarvamCodewalk.stopRecording",
+    "onCommand:sarvamCodewalk.useTranscript",
+    "onCommand:sarvamCodewalk.runApprovedTask",
+    "onCommand:sarvamCodewalk.playLesson",
+    "onCommand:sarvamCodewalk.openFixtureFolder",
+    "onCommand:sarvamCodewalk.deleteSession",
+    "onCommand:sarvamCodewalk.clearHistory",
+    "onCommand:sarvamCodewalk.setSarvamApiKey",
+    "onCommand:sarvamCodewalk.clearSarvamApiKey"
+  ],
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sarvam-codewalk",
+          "title": "Sarvam Codewalk",
+          "icon": "media/codewalk.png"
+        }
+      ]
+    },
+    "views": {
+      "sarvam-codewalk": [
+        {
+          "type": "webview",
+          "id": "sarvam-codewalk.learningPanel",
+          "name": "Learn this change",
+          "contextualTitle": "Codewalk"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "sarvamCodewalk.startRecording",
+        "title": "Sarvam Codewalk: Start Recording"
+      },
+      {
+        "command": "sarvamCodewalk.stopRecording",
+        "title": "Sarvam Codewalk: Stop Recording"
+      },
+      {
+        "command": "sarvamCodewalk.useTranscript",
+        "title": "Sarvam Codewalk: Use Transcript"
+      },
+      {
+        "command": "sarvamCodewalk.runApprovedTask",
+        "title": "Sarvam Codewalk: Run Approved Task"
+      },
+      {
+        "command": "sarvamCodewalk.playLesson",
+        "title": "Sarvam Codewalk: Listen to Lesson"
+      },
+      {
+        "command": "sarvamCodewalk.openFixtureFolder",
+        "title": "Sarvam Codewalk: Open Current Workspace"
+      },
+      {
+        "command": "sarvamCodewalk.deleteSession",
+        "title": "Sarvam Codewalk: Delete Session"
+      },
+      {
+        "command": "sarvamCodewalk.clearHistory",
+        "title": "Sarvam Codewalk: Clear Learning History"
+      },
+      {
+        "command": "sarvamCodewalk.setSarvamApiKey",
+        "title": "Sarvam Codewalk: Set Sarvam API Key"
+      },
+      {
+        "command": "sarvamCodewalk.clearSarvamApiKey",
+        "title": "Sarvam Codewalk: Clear Sarvam API Key"
+      }
+    ],
+    "configuration": {
+      "title": "Sarvam Codewalk",
+      "properties": {
+        "sarvamCodewalk.notificationMode": {
+          "type": "string",
+          "enum": [
+            "statusBar",
+            "toast"
+          ],
+          "default": "statusBar",
+          "description": "How Sarvam Codewalk reports normal progress."
+        },
+        "sarvamCodewalk.audioDevice": {
+          "type": "string",
+          "default": "default",
+          "description": "ALSA capture device passed to arecord. Use plughw:0,7 for this computer's DMIC16kHz microphone."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p ./ && npm run bundle",
+    "bundle": "esbuild src/extension.ts --bundle --platform=node --target=node20 --external:vscode --outfile=out/extension.js",
+    "watch": "tsc -watch -p ./",
+    "lint": "eslint src --ext .ts",
+    "test": "npm run compile && npm run test:unit",
+    "test:unit": "tsc -p tsconfig.test.json && mocha \"out-test/test/unit/**/*.test.js\"",
+    "test:extension": "tsc -p tsconfig.test.json && node out-test/test/runTest.js",
+    "package": "npm run compile && vsce package --allow-missing-repository --out sarvam-codewalk.vsix"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.15.3",
+    "@types/vscode": "^1.98.0",
+    "@typescript-eslint/eslint-plugin": "^8.31.0",
+    "@typescript-eslint/parser": "^8.31.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.25.12",
+    "eslint": "^9.25.1",
+    "glob": "^13.0.6",
+    "mocha": "^12.0.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "sarvamai": "^1.1.12",
+    "zod": "^4.6.7"
+  }
+}
