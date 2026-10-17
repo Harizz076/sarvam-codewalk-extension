@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["summary", "filesChanged", "decisions", "tradeoffs", "tests", "limitation", "nextStep"],
+  "properties": {
+    "summary": { "type": "string", "maxLength": 1200 },
+    "filesChanged": {
+      "type": "array",
+      "maxItems": 20,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["path", "purpose"],
+        "properties": {
+          "path": { "type": "string", "maxLength": 300 },
+          "purpose": { "type": "string", "maxLength": 500 }
+        }
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["decision", "reason"],
+        "properties": {
+          "decision": { "type": "string", "maxLength": 500 },
+          "reason": { "type": "string", "maxLength": 500 }
+        }
+      }
+    },
+    "tradeoffs": { "type": "array", "maxItems": 12, "items": { "type": "string", "maxLength": 500 } },
+    "tests": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["command", "result", "note"],
+        "properties": {
+          "command": { "type": "string", "maxLength": 300 },
+          "result": { "type": "string", "enum": ["passed", "failed", "not-run"] },
+          "note": { "type": "string", "maxLength": 500 }
+        }
+      }
+    },
+    "limitation": { "type": ["string", "null"], "maxLength": 800 },
+    "nextStep": { "type": "string", "maxLength": 800 }
+  }
+}
