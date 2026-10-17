@@ -36,9 +36,7 @@ export class CodexRunner {
   }
 
   private async assertWorkspaceRepository(workspacePath: string): Promise<void> {
-    const packageFile = path.join(workspacePath, "package.json");
     const gitDir = path.join(workspacePath, ".git");
-    await fs.access(packageFile);
     await fs.access(gitDir);
   }
 
